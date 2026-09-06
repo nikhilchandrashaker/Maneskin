@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Måneskin — A History</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wine: #150a0e;
+    --wine-deep: #0c0608;
+    --moon: #cdd9e6;
+    --moon-dim: #7f8fa1;
+    --crimson: #d1183f;
+    --gold: #cc9a3f;
+    --card-bg: #1d1116;
+    --line: #3a222b;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    background: var(--wine-deep);
+    color: var(--moon);
+    font-family: "Source Serif 4", Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection{ background: var(--crimson); color: #fff; }
+
+  a { color: var(--gold); }
+
+  .stage{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+    position: relative;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height: 68vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding-top: 10vh;
+    overflow: hidden;
+  }
+
+  .hero-glow{
+    position:absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 620px;
+    height: 620px;
+    background: radial-gradient(circle, rgba(209,24,63,0.28) 0%, rgba(209,24,63,0.07) 40%, transparent 70%);
+    filter: blur(4px);
+    pointer-events: none;
+  }
+
+  .kicker{
+    font-family: "Source Serif 4", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--moon-dim);
+    margin: 0 0 6px 2px;
+  }
+
+  h1.title{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 800;
+    font-size: clamp(3.4rem, 12vw, 7.2rem);
+    line-height: 0.86;
+    letter-spacing: 0.5px;
+    margin: 0;
+    color: var(--moon);
+    text-shadow: 0 0 40px rgba(205,217,230,0.15);
+    position: relative;
+  }
+
+  .subhead{
+    max-width: 54ch;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #b9c3cd;
+    margin-top: 22px;
+  }
+
+  .hero-meta{
+    display:flex;
+    gap: 28px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+  }
+  .hero-meta div{ display:flex; flex-direction:column; }
+  .hero-meta .n{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--crimson);
+  }
+  .hero-meta .l{
+    font-size: 0.85rem;
+    color: var(--moon-dim);
+  }
+
+  /* ---------- Timeline ---------- */
+  .timeline{
+    position: relative;
+    margin-top: 40px;
+    padding-left: 34px;
+  }
+
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left: 5px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--line) 4%, var(--line) 96%, transparent);
+  }
+
+  .timeline-fill{
+    position:absolute;
+    left: 5px;
+    top: 6px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--crimson), var(--gold));
+    height: 0%;
+    transition: height 1.4s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .event{
+    position: relative;
+    padding: 0 0 46px 30px;
+  }
+  .event:last-child{ padding-bottom: 6px; }
+
+  .event .dot{
+    position: absolute;
+    left: -34px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--wine-deep);
+    border: 2px solid var(--moon-dim);
+    transition: all .5s ease;
+  }
+  .event.era .dot{
+    width: 16px; height: 16px; left: -36px;
+    border-color: var(--gold);
+    background: var(--gold);
+  }
+  .event.lit .dot{
+    border-color: var(--crimson);
+    background: var(--crimson);
+    box-shadow: 0 0 14px rgba(209,24,63,0.7);
+  }
+
+  .year{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--moon-dim);
+    letter-spacing: 1px;
+  }
+  .event.lit .year{ color: var(--gold); }
+
+  .headline{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 600;
+    font-size: 1.65rem;
+    line-height: 1.15;
+    margin: 4px 0 8px;
+    color: var(--moon);
+    cursor: pointer;
+  }
+  .event.era .headline{
+    font-size: 1.35rem;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .headline .arrow{
+    display:inline-block;
+    margin-right: 8px;
+    color: var(--crimson);
+    transition: transform .3s ease;
+    font-size: 1rem;
+  }
+  .event.open .headline .arrow{ transform: rotate(90deg); }
+
+  .detail{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s ease;
+  }
+  .event.open .detail{ max-height: 340px; }
+
+  .detail-inner{
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: #c4cdd5;
+    padding-top: 2px;
+    padding-right: 8px;
+    max-width: 62ch;
+  }
+
+  .detail-inner .track{
+    display:inline-block;
+    margin-top: 10px;
+    font-style: italic;
+    color: var(--moon-dim);
+    font-size: 0.92rem;
+  }
+
+  /* ---------- Charts ---------- */
+  .charts{
+    margin-top: 90px;
+    padding-top: 50px;
+    border-top: 1px solid var(--line);
+  }
+  .charts h2{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--moon);
+    margin: 0 0 8px;
+  }
+  .charts > p{
+    color: #b9c3cd;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    max-width: 60ch;
+    margin: 0 0 44px;
+  }
+
+  .chart-card{
+    margin-bottom: 56px;
+  }
+  .chart-card h3{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 600;
+    font-size: 1.35rem;
+    color: var(--moon);
+    margin: 0 0 4px;
+  }
+  .chart-card .takeaway{
+    color: var(--moon-dim);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    max-width: 56ch;
+    margin: 0 0 18px;
+  }
+  .chart-card .takeaway strong{ color: var(--gold); font-weight: 600; }
+
+  .chart-wrap{
+    border: 1px solid var(--line);
+    background: var(--card-bg);
+    padding: 20px 18px 12px;
+    overflow-x: auto;
+  }
+  .chart-wrap svg{
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 480px;
+  }
+
+  .legend{
+    display:flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    font-size: 0.82rem;
+    color: var(--moon-dim);
+  }
+  .legend span{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .legend i{
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ---------- Members ---------- */
+  .lineup{
+    margin-top: 90px;
+    padding-top: 50px;
+    border-top: 1px solid var(--line);
+  }
+  .lineup h2{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--moon);
+    margin: 0 0 26px;
+  }
+  .members{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 560px){
+    .members{ grid-template-columns: 1fr; }
+  }
+  .member{
+    border: 1px solid var(--line);
+    background: var(--card-bg);
+    padding: 18px 20px;
+  }
+  .member .name{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--moon);
+  }
+  .member .role{
+    font-size: 0.88rem;
+    color: var(--crimson);
+    margin-top: 2px;
+  }
+  .member .note{
+    font-size: 0.92rem;
+    color: var(--moon-dim);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  footer{
+    margin-top: 70px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+    color: var(--moon-dim);
+    line-height: 1.6;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .timeline-fill, .detail, .headline .arrow, .event .dot { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <p class="kicker">Rome, 2016 — an indefinite hiatus, 2024</p>
+    <h1 class="title">MÅNESKIN</h1>
+    <p class="subhead">Four schoolmates busking on a Roman side street became the band that broke Italy's 31-year Eurovision drought — then took glam rock to arenas that hadn't booked a rock act in years. This is how it happened.</p>
+    <div class="hero-meta">
+      <div><span class="n">3</span><span class="l">studio albums</span></div>
+      <div><span class="n">40M+</span><span class="l">records sold</span></div>
+      <div><span class="n">524</span><span class="l">Eurovision points</span></div>
+      <div><span class="n">8</span><span class="l">years active</span></div>
+    </div>
+  </section>
+
+  <div class="timeline" id="timeline">
+    <div class="timeline-fill" id="fill"></div>
+
+    <div class="event era" data-open="false">
+      <div class="dot"></div>
+      <div class="year">2015–2016</div>
+      <div class="headline"><span class="arrow">▸</span>Four schoolmates, one Facebook ad</div>
+      <div class="detail"><div class="detail-inner">
+        Damiano David, Victoria De Angelis and Thomas Raggi knew each other from school in Rome. Needing a drummer, they posted a "musicians wanted" ad on Facebook — Ethan Torchio answered. The four began busking on Via del Corso and playing small venues before entering a local youth competition called "Pulse," writing original songs for the first time to qualify.
+      </div></div>
+    </div>
+
+    <div class="event" data-open="false">
+      <div class="dot"></div>
+      <div class="year">2016</div>
+      <div class="headline"><span class="arrow">▸</span>A name born from moonlight</div>
+      <div class="detail"><div class="detail-inner">
+        Entering "Pulse" meant they needed a band name. Victoria, who is half-Danish, suggested Måneskin — Danish for "moonlight." It stuck.
+      </div></div>
+    </div>
+
+    <div class="event lit" data-open="false">
+      <div class="dot"></div>
+      <div class="year">2017</div>
+      <div class="headline"><span class="arrow">▸</span>Runner-up on X Factor Italia</div>
+      <div class="detail"><div class="detail-inner">
+        The band auditioned for the eleventh season of X Factor Italia with their original song "Chosen," mentored by Manuel Agnelli. They finished second overall, but a busking-style cover they performed on the show — a stripped-down version of "Beggin'" — quietly became their calling card long before anyone knew it would go viral years later.
+        <div class="track">Debut single "Chosen" — #2, Italian singles chart</div>
+      </div></div>
+    </div>
+
+    <div class="event" data-open="false">
+      <div class="dot"></div>
+      <div class="year">Dec 2017 – Oct 2018</div>
+      <div class="headline"><span class="arrow">▸</span>From EP to debut album</div>
+      <div class="detail"><div class="detail-inner">
+        The "Chosen" EP arrived in December 2017. Ten months later, on 26 October 2018, they released their debut full-length album, <em>Il ballo della vita</em> ("The Dance of Life"), establishing the glam-rock, funk-inflected sound and stage persona that would define them.
+      </div></div>
+    </div>
+
+    <div class="event lit" data-open="false">
+      <div class="dot"></div>
+      <div class="year">March 2021</div>
+      <div class="headline"><span class="arrow">▸</span>Sanremo, then a second album</div>
+      <div class="detail"><div class="detail-inner">
+        Måneskin won the 71st Sanremo Music Festival — Italy's biggest and most prestigious song contest — with "Zitti e buoni," earning the automatic right to represent Italy at Eurovision. Days later they released their second studio album, <em>Teatro d'ira: Vol. I</em> ("Theatre of Wrath, Vol. I").
+      </div></div>
+    </div>
+
+    <div class="event era" data-open="false">
+      <div class="dot"></div>
+      <div class="year">22 May 2021</div>
+      <div class="headline"><span class="arrow">▸</span>Eurovision, Rotterdam</div>
+      <div class="detail"><div class="detail-inner">
+        Performing "Zitti e buoni," Måneskin won the Eurovision Song Contest 2021 with 524 points — Italy's first victory since 1990. The win instantly turned a well-known Italian rock band into a global act, with hosts and press reduced to spelling the umlaut in real time.
+      </div></div>
+    </div>
+
+    <div class="event lit" data-open="false">
+      <div class="dot"></div>
+      <div class="year">2021</div>
+      <div class="headline"><span class="arrow">▸</span>The viral aftershock</div>
+      <div class="detail"><div class="detail-inner">
+        In the months after Eurovision, that old X Factor cover of "Beggin'" exploded on TikTok and streaming platforms worldwide, joined by "I Wanna Be Your Slave." Måneskin became the first Italian rock act to reach the UK Top 10, with all three songs charting internationally — over three million copies sold outside Italy alone.
+      </div></div>
+    </div>
+
+    <div class="event" data-open="false">
+      <div class="dot"></div>
+      <div class="year">Nov 2022</div>
+      <div class="headline"><span class="arrow">▸</span>A Grammy nomination</div>
+      <div class="detail"><div class="detail-inner">
+        Måneskin received their first Grammy nomination, for Best New Artist at the 65th Annual Grammy Awards — a rare nod for a band singing largely in Italian.
+      </div></div>
+    </div>
+
+    <div class="event lit" data-open="false">
+      <div class="dot"></div>
+      <div class="year">Jan 2023</div>
+      <div class="headline"><span class="arrow">▸</span>RUSH!</div>
+      <div class="detail"><div class="detail-inner">
+        Their third studio album, <em>RUSH!</em>, arrived on 20 January 2023 — largely written and sung in English, aimed squarely at the arena and stadium circuit they'd earned across Europe and the Americas.
+      </div></div>
+    </div>
+
+    <div class="event era" data-open="false">
+      <div class="dot"></div>
+      <div class="year">2024</div>
+      <div class="headline"><span class="arrow">▸</span>Hiatus, and a solo turn</div>
+      <div class="detail"><div class="detail-inner">
+        Frontman Damiano David launched a solo career in 2024, and the band has been on an indefinite hiatus since. No breakup was announced — just a pause, after an eight-year run from a Roman side street to a Eurovision trophy and a Grammy nomination.
+      </div></div>
+    </div>
+
+  </div>
+
+  <section class="charts">
+    <h2>Numbers behind the noise</h2>
+    <p>Three ways to see the same story: a band with a solid home following in Italy that, almost overnight in May 2021, became one on every chart and every streaming service in the world.</p>
+
+    <div class="chart-card">
+      <h3>Fan support before and after Eurovision</h3>
+      <p class="takeaway">Måneskin had <strong>2.4 million</strong> monthly Spotify listeners the week of the Eurovision final. Five weeks later they'd passed <strong>50 million</strong> — briefly outstreaming Foo Fighters and Arctic Monkeys combined.</p>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Line chart of Maneskin monthly Spotify listeners rising from 2.4 million in April 2021 to a peak of 50.3 million in late July 2021, then settling near 29 million by December 2021">
+          <!-- gridlines -->
+          <g stroke="#3a222b" stroke-width="1">
+            <line x1="64" y1="202" x2="612" y2="202"/>
+            <line x1="64" y1="167" x2="612" y2="167"/>
+            <line x1="64" y1="133" x2="612" y2="133"/>
+            <line x1="64" y1="98"  x2="612" y2="98"/>
+            <line x1="64" y1="63"  x2="612" y2="63"/>
+            <line x1="64" y1="28"  x2="612" y2="28"/>
+          </g>
+          <g fill="#7f8fa1" font-family="Source Serif 4, serif" font-size="11" text-anchor="end">
+            <text x="56" y="206">0M</text>
+            <text x="56" y="171">10M</text>
+            <text x="56" y="137">20M</text>
+            <text x="56" y="102">30M</text>
+            <text x="56" y="67">40M</text>
+            <text x="56" y="32">50M</text>
+          </g>
+
+          <!-- eurovision marker -->
+          <line x1="120" y1="20" x2="120" y2="210" stroke="#cc9a3f" stroke-width="1.5" stroke-dasharray="3 4"/>
+          <text x="126" y="20" fill="#cc9a3f" font-family="Source Serif 4, serif" font-style="italic" font-size="11.5">Eurovision win, 22 May</text>
+
+          <!-- line path -->
+          <polyline points="70,202 176,110 282,68 388,36 494,42 600,110" fill="none" stroke="#d1183f" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+          <g fill="#d1183f">
+            <circle cx="70"  cy="202" r="4.5"/>
+            <circle cx="176" cy="110" r="4.5"/>
+            <circle cx="282" cy="68"  r="4.5"/>
+            <circle cx="388" cy="36"  r="5.5"/>
+            <circle cx="494" cy="42"  r="4.5"/>
+            <circle cx="600" cy="110" r="4.5"/>
+          </g>
+
+          <g fill="#cdd9e6" font-family="Source Serif 4, serif" font-size="11.5" text-anchor="middle">
+            <text x="70"  y="222">Apr '21</text>
+            <text x="176" y="222">Jun '21</text>
+            <text x="282" y="222">Jul 12</text>
+            <text x="388" y="222">Jul 28</text>
+            <text x="494" y="222">Aug 22</text>
+            <text x="600" y="222">Dec '21</text>
+          </g>
+          <g fill="#d1183f" font-family="Big Shoulders Display, sans-serif" font-weight="600" font-size="12" text-anchor="middle">
+            <text x="70"  y="196">2.4M</text>
+            <text x="388" y="24">50.3M</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>How far each album travelled</h3>
+      <p class="takeaway">Their 2018 debut never charted outside Italy. By <strong>Rush!</strong> in 2023, they were Top 5 in the UK and had debuted on the Billboard 200 in the US — their first entry on an American chart.</p>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chart showing album chart peak positions in Italy, the UK, and the US across three albums, showing international breakthrough over time">
+          <g stroke="#3a222b" stroke-width="1" stroke-dasharray="2 4">
+            <line x1="60" y1="30"  x2="612" y2="30"/>
+            <line x1="60" y1="120" x2="612" y2="120"/>
+            <line x1="60" y1="210" x2="612" y2="210"/>
+          </g>
+          <g fill="#7f8fa1" font-family="Source Serif 4, serif" font-size="11" text-anchor="end">
+            <text x="52" y="34">#1</text>
+            <text x="52" y="124">#25</text>
+            <text x="52" y="214">#50</text>
+          </g>
+          <text x="52" y="238" fill="#7f8fa1" font-family="Source Serif 4, serif" font-style="italic" font-size="10.5" text-anchor="end">didn't chart</text>
+
+          <!-- Il ballo della vita 2018: ITA 1, UK -, US - -->
+          <g>
+            <line x1="140" y1="30" x2="140" y2="228" stroke="#3a222b" stroke-width="1"/>
+            <circle cx="120" cy="30"  r="6" fill="#d1183f"/>
+            <circle cx="140" cy="228" r="5" fill="none" stroke="#7f8fa1" stroke-width="1.5" stroke-dasharray="1.5 2"/>
+            <circle cx="160" cy="228" r="5" fill="none" stroke="#7f8fa1" stroke-width="1.5" stroke-dasharray="1.5 2"/>
+          </g>
+
+          <!-- Teatro d'ira Vol I 2021: ITA 1, UK 49, US - -->
+          <g>
+            <line x1="340" y1="30" x2="340" y2="228" stroke="#3a222b" stroke-width="1"/>
+            <circle cx="320" cy="30"  r="6" fill="#d1183f"/>
+            <circle cx="340" cy="192" r="6" fill="#cc9a3f"/>
+            <circle cx="360" cy="228" r="5" fill="none" stroke="#7f8fa1" stroke-width="1.5" stroke-dasharray="1.5 2"/>
+          </g>
+
+          <!-- Rush! 2023: ITA 1, UK 5, US 18 -->
+          <g>
+            <line x1="540" y1="30" x2="540" y2="228" stroke="#3a222b" stroke-width="1"/>
+            <circle cx="520" cy="30" r="6" fill="#d1183f"/>
+            <circle cx="540" cy="43" r="6" fill="#cc9a3f"/>
+            <circle cx="560" cy="87" r="6" fill="#cdd9e6"/>
+          </g>
+
+          <g fill="#cdd9e6" font-family="Big Shoulders Display, sans-serif" font-weight="600" font-size="14" text-anchor="middle">
+            <text x="140" y="252">Il ballo della vita</text>
+            <text x="340" y="252">Teatro d'ira: Vol. I</text>
+            <text x="540" y="252">Rush!</text>
+          </g>
+          <g fill="#7f8fa1" font-family="Source Serif 4, serif" font-size="11" text-anchor="middle">
+            <text x="140" y="267">2018</text>
+            <text x="340" y="267">2021</text>
+            <text x="540" y="267">2023</text>
+          </g>
+        </svg>
+      </div>
+      <div class="legend">
+        <span><i style="background:#d1183f"></i>Italy</span>
+        <span><i style="background:#cc9a3f"></i>UK</span>
+        <span><i style="background:#cdd9e6"></i>US</span>
+        <span><i style="background:transparent;border:1.5px dashed #7f8fa1"></i>Didn't chart there</span>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3>The night the televote decided it</h3>
+      <p class="takeaway">Italy sat outside the top three after national juries voted — <strong>4th place</strong>. The public televote, worth half the total score, gave them 316 of their 524 points and the win.</p>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar chart comparing Italy's Eurovision 2021 jury vote of 208 points against the public televote of 316 points, totalling 524 points for the win">
+          <line x1="60" y1="188" x2="580" y2="188" stroke="#3a222b" stroke-width="1"/>
+
+          <rect x="200" y="93" width="90" height="95" fill="#7f8fa1"/>
+          <rect x="380" y="43" width="90" height="145" fill="#d1183f"/>
+
+          <g fill="#cdd9e6" font-family="Big Shoulders Display, sans-serif" font-weight="700" font-size="20" text-anchor="middle">
+            <text x="245" y="84">208</text>
+            <text x="425" y="34">316</text>
+          </g>
+          <g fill="#cdd9e6" font-family="Source Serif 4, serif" font-size="13" text-anchor="middle">
+            <text x="245" y="206">Jury vote</text>
+            <text x="425" y="206">Public televote</text>
+          </g>
+          <text x="320" y="16" fill="#cc9a3f" font-family="Source Serif 4, serif" font-style="italic" font-size="12.5" text-anchor="middle">524 points total — Italy's first Eurovision win since 1990</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="lineup">
+    <h2>The lineup</h2>
+    <div class="members">
+      <div class="member">
+        <div class="name">Damiano David</div>
+        <div class="role">Lead vocals</div>
+        <div class="note">Began a solo career in 2024, alongside his work fronting the band.</div>
+      </div>
+      <div class="member">
+        <div class="name">Victoria De Angelis</div>
+        <div class="role">Bass, backing vocals</div>
+        <div class="note">Half-Danish; the one who named the band after her mother's language.</div>
+      </div>
+      <div class="member">
+        <div class="name">Thomas Raggi</div>
+        <div class="role">Guitar</div>
+        <div class="note">One of the three original schoolmates who started the band.</div>
+      </div>
+      <div class="member">
+        <div class="name">Ethan Torchio</div>
+        <div class="role">Drums, percussion</div>
+        <div class="note">Joined after answering the band's Facebook ad for a drummer.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Click any headline to expand its story. Built as a quick reference timeline — dates and details drawn from public band history through their 2024 hiatus.
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.event').forEach(function(ev){
+    ev.querySelector('.headline').addEventListener('click', function(){
+      var isOpen = ev.classList.contains('open');
+      ev.classList.toggle('open', !isOpen);
+    });
+  });
+
+  // animate the timeline fill once, on load
+  window.addEventListener('load', function(){
+    var fill = document.getElementById('fill');
+    var timeline = document.getElementById('timeline');
+    requestAnimationFrame(function(){
+      fill.style.height = (timeline.offsetHeight - 12) + 'px';
+    });
+  });
+</script>
+
+</body>
+</html>

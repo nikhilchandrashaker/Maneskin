@@ -1,0 +1,24 @@
+<svg viewBox="0 0 640 325" xmlns="http://www.w3.org/2000/svg" font-family="Source Serif 4 Static">
+  <rect x="0" y="0" width="640" height="325" fill="#1d1116"/>
+  <text x="30" y="34" fill="#cdd9e6" font-family="Big Shoulders Display Bold" font-size="20">The night the televote decided it</text>
+  <text x="30" y="54" fill="#7f8fa1" font-size="12.5">Italy's Eurovision 2021 final score, "Zitti e buoni" — jury vote vs. public televote</text>
+
+  <g transform="translate(0,45)">
+    <line x1="60" y1="188" x2="580" y2="188" stroke="#3a222b" stroke-width="1"/>
+
+    <rect x="200" y="93" width="90" height="95" fill="#7f8fa1"/>
+    <rect x="380" y="43" width="90" height="145" fill="#d1183f"/>
+
+    <g fill="#cdd9e6" font-family="Big Shoulders Display Bold" font-size="20" text-anchor="middle">
+      <text x="245" y="84">208</text>
+      <text x="425" y="34">316</text>
+    </g>
+    <g fill="#cdd9e6" font-size="13" text-anchor="middle">
+      <text x="245" y="206">Jury vote</text>
+      <text x="425" y="206">Public televote</text>
+    </g>
+  </g>
+
+  <text x="320" y="278" fill="#cc9a3f" font-style="italic" font-size="12.5" text-anchor="middle">524 points total — Italy's first Eurovision win since 1990</text>
+  <text x="30" y="309" fill="#7f8fa1" font-style="italic" font-size="11">Source: Eurovision Song Contest 2021 official results, Rotterdam Ahoy — 22 May 2021</text>
+</svg>

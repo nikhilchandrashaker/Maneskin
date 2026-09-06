@@ -1,0 +1,53 @@
+<svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg" font-family="Source Serif 4 Static">
+  <rect x="0" y="0" width="640" height="300" fill="#1d1116"/>
+  <text x="30" y="34" fill="#cdd9e6" font-family="Big Shoulders Display Bold" font-size="20">Fan support before and after Eurovision</text>
+  <text x="30" y="54" fill="#7f8fa1" font-size="12.5">Måneskin monthly Spotify listeners, Apr–Dec 2021</text>
+
+  <g transform="translate(0,30)">
+    <g stroke="#3a222b" stroke-width="1">
+      <line x1="64" y1="202" x2="612" y2="202"/>
+      <line x1="64" y1="167" x2="612" y2="167"/>
+      <line x1="64" y1="133" x2="612" y2="133"/>
+      <line x1="64" y1="98"  x2="612" y2="98"/>
+      <line x1="64" y1="63"  x2="612" y2="63"/>
+      <line x1="64" y1="28"  x2="612" y2="28"/>
+    </g>
+    <g fill="#7f8fa1" font-size="11" text-anchor="end">
+      <text x="56" y="206">0M</text>
+      <text x="56" y="171">10M</text>
+      <text x="56" y="137">20M</text>
+      <text x="56" y="102">30M</text>
+      <text x="56" y="67">40M</text>
+      <text x="56" y="32">50M</text>
+    </g>
+
+    <line x1="120" y1="20" x2="120" y2="210" stroke="#cc9a3f" stroke-width="1.5" stroke-dasharray="3 4"/>
+    <text x="126" y="42" fill="#cc9a3f" font-style="italic" font-size="11.5">Eurovision win, 22 May</text>
+
+    <polyline points="70,202 176,110 282,68 388,36 494,42 600,110" fill="none" stroke="#d1183f" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+    <g fill="#d1183f">
+      <circle cx="70"  cy="202" r="4.5"/>
+      <circle cx="176" cy="110" r="4.5"/>
+      <circle cx="282" cy="68"  r="4.5"/>
+      <circle cx="388" cy="36"  r="5.5"/>
+      <circle cx="494" cy="42"  r="4.5"/>
+      <circle cx="600" cy="110" r="4.5"/>
+    </g>
+
+    <g fill="#cdd9e6" font-size="11.5" text-anchor="middle">
+      <text x="70"  y="222">Apr '21</text>
+      <text x="176" y="222">Jun '21</text>
+      <text x="282" y="222">Jul 12</text>
+      <text x="388" y="222">Jul 28</text>
+      <text x="494" y="222">Aug 22</text>
+      <text x="600" y="222">Dec '21</text>
+    </g>
+    <g fill="#d1183f" font-family="Big Shoulders Display SemiBold" font-size="12" text-anchor="middle">
+      <text x="70"  y="196">2.4M</text>
+      <text x="388" y="24">50.3M</text>
+    </g>
+  </g>
+
+  <text x="30" y="288" fill="#7f8fa1" font-style="italic" font-size="11">Source: Chartmetric 6-Month Report 2021 H1; Music Business Worldwide, Jul–Aug 2021</text>
+</svg>
